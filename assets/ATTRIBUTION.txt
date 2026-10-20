@@ -1,6 +1,8 @@
-Home Assistant logo: Open Home Foundation.
-Source: https://github.com/home-assistant/assets/tree/master/logo
-Official monochrome geometry; exported as white on black with clear space.
-Home Assistant and the logo are trademarks of the Open Home Foundation.
-This private community project is not an official Home Assistant product.
-For commercial publication, consult the logo owner's usage conditions.
+Mein Zuhause: independent black-and-white project icon.
+Created on 2026-10-20 with the built-in OpenAI image generation tool.
+Master: assets/mein-zuhause-master.png. Prompt: assets/logo-prompt.txt.
+Motifs: outlined house, speech bubble, voice waveform and square connection nodes.
+No official Home Assistant or Alexa logo is incorporated.
+This community project is not an official Home Assistant product.
+The project code and artwork are distributed under the repository's MIT license.
+Home Assistant and its official logo remain trademarks of the Open Home Foundation.

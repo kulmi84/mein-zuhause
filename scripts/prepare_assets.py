@@ -1,24 +1,18 @@
-"""Export official monochrome logo in Alexa sizes; generate localization/model."""
+"""Export our independent logo in Alexa/HA sizes; generate localization/model."""
 import json
 from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
-source = ASSETS / "source" / "home-assistant-logomark-with-margins-monochrome-on-dark.png"
+source = ASSETS / "mein-zuhause-master.png"
 if source.exists():
-    # Preserve original geometry and alpha; use exact white on exact black.
+    # Size exports only. The independent generated master stays unchanged.
     image = Image.open(source).convert("RGBA")
-    mark = Image.new("RGBA", image.size, "white")
-    mark.putalpha(image.getchannel("A"))
     canvas = Image.new("RGBA", image.size, "black")
-    canvas.alpha_composite(mark)
+    canvas.alpha_composite(image)
     for size in (108, 512):
         canvas.convert("RGB").resize((size, size), Image.Resampling.LANCZOS).save(ASSETS / ("mein-zuhause-%s.png" % size))
-    svg = (ASSETS / "source" / "home-assistant-logomark-monochrome-on-dark.svg").read_text()
-    svg = svg.replace('fill="#F2F4F9"', 'fill="#FFFFFF"').replace('viewBox="0 0 240 240"', 'viewBox="-30 -30 300 300"')
-    svg = svg.replace('<path ', '<rect x="-30" y="-30" width="300" height="300" fill="#000000"/><path ', 1)
-    (ASSETS / "mein-zuhause.svg").write_text(svg, encoding="utf-8")
     brand = ROOT / "custom_components" / "mein_zuhause" / "brand"
     brand.mkdir(exist_ok=True)
     canvas.convert("RGB").resize((256, 256), Image.Resampling.LANCZOS).save(brand / "icon.png")

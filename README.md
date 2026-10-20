@@ -6,7 +6,7 @@ Eigenständiger privater Alexa-Skill, aufgebaut nach dem Relay-Prinzip von
 „meine Solaranlage“. Eigene Cloudflare-D1-Datenbank **mein-zuhause** mit
 EU-Jurisdiktion; eigener Worker. Die Solarinstallation wird nicht verändert.
 
-Version 0.1.0 benötigt Home Assistant ab 2026.3 (lokales Integrations-Icon).
+Version 0.1.1 benötigt Home Assistant ab 2026.3 (lokales Integrations-Icon).
 Es ist ein erster funktionsfähiger Entwicklungsstand. Worker und
 Sprachlogik sind automatisiert geprüft. Installation über HACS, Konfigurations-
 und Optionsdialog sowie die Übertragung eines Garagentor-Kontakts wurden in
@@ -142,9 +142,10 @@ Laufzeittest enthält diese Testsuite nicht.
 
 ## Name und Icon
 
-„Mein Zuhause“ ist der Projekt- und Aufrufname. Das angefragte Logo wird aus
-der offiziellen monochromen Home-Assistant-Vorlage exportiert, ohne dessen
-Geometrie zu verändern. Quellen und Markenhinweis: `assets/ATTRIBUTION.txt`.
+„Mein Zuhause“ ist der Projekt- und Aufrufname. Das eigenständige Schwarz-Weiß-
+Logo verbindet ein Haus mit Sprechblase, Sprachsignal und Verbindungsknoten.
+Es enthält kein offizielles Home-Assistant-Logo. Herkunft und Generierungs-
+Prompt: `assets/ATTRIBUTION.txt` und `assets/logo-prompt.txt`.
 Das Projekt ist eine private Community-Erweiterung und kein offizielles
 Home-Assistant-Produkt. Eine Nutzung von „Home Assistant“ als eigenständigem
 Produktnamen für eine Veröffentlichung ist gesondert mit dem Markeninhaber
