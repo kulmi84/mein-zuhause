@@ -11,5 +11,5 @@ path.write_text(json.dumps({"url": url, "sync_token": keys["SYNC_TOKEN"]}, inden
 alexa = ROOT / ".private" / "alexa-relay_config.json"
 old = json.loads(alexa.read_text(encoding="utf-8")) if alexa.exists() else {}
 alexa.write_text(json.dumps({"url": url, "read_token": keys["READ_TOKEN"],
-    "control_token": keys["CONTROL_TOKEN"], "skill_id": old.get("skill_id", "REPLACE_WITH_ALEXA_SKILL_ID")}, indent=2), encoding="utf-8")
+    "control_token": keys["CONTROL_TOKEN"], "skill_id": sys.argv[2] if len(sys.argv) > 2 else old.get("skill_id", "REPLACE_WITH_ALEXA_SKILL_ID")}, indent=2), encoding="utf-8")
 print("Private HA and Alexa configuration files prepared.")

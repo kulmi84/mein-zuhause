@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import shutil
+import sys
 from zipfile import ZipFile, ZIP_DEFLATED
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,3 +21,9 @@ with ZipFile(OUT / "mein-zuhause-alexa.zip", "w", ZIP_DEFLATED) as archive:
     archive.write(ROOT / "alexa" / "relay_config.example.json", "lambda/relay_config.json")
     archive.writestr("lambda/requirements.txt", "")
 print("Built dist/mein-zuhause-ha.zip and Alexa files (without credentials).")
+if "--private-alexa" in sys.argv:
+    with ZipFile(ROOT / ".private" / "alexa-upload.zip", "w", ZIP_DEFLATED) as archive:
+        archive.write(ROOT / "alexa" / "lambda_function.py", "lambda/lambda_function.py")
+        archive.write(ROOT / ".private" / "alexa-relay_config.json", "lambda/relay_config.json")
+        archive.writestr("lambda/requirements.txt", "")
+    print("Private Alexa upload prepared under .private/; contains credentials, do not publish.")

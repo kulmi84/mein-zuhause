@@ -9,3 +9,4 @@ cloudflare/wrangler.jsonc
 assets/source/
 assets/*-source.zip
 dist/
+/scripts/prepare_publication.py
