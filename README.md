@@ -1,13 +1,17 @@
 # Mein Zuhause – Alexa für Home Assistant
 
+![Mein Zuhause](assets/mein-zuhause-108.png)
+
 Eigenständiger privater Alexa-Skill, aufgebaut nach dem Relay-Prinzip von
 „meine Solaranlage“. Eigene Cloudflare-D1-Datenbank **mein-zuhause** mit
 EU-Jurisdiktion; eigener Worker. Die Solarinstallation wird nicht verändert.
 
 Version 0.1.0 benötigt Home Assistant ab 2026.3 (lokales Integrations-Icon).
 Es ist ein erster funktionsfähiger Entwicklungsstand. Worker und
-Sprachlogik sind automatisiert geprüft. Die Installation in einer echten
-Home-Assistant-Instanz und der Test auf einem Echo stehen noch aus.
+Sprachlogik sind automatisiert geprüft. Installation über HACS, Konfigurations-
+und Optionsdialog sowie die Übertragung eines Garagentor-Kontakts wurden in
+einer echten Home-Assistant-Instanz geprüft. Der Test auf einem physischen Echo
+steht noch aus.
 
 ## Verwendung
 
@@ -131,7 +135,9 @@ python scripts/build.py
 ```
 
 Die Worker-Tests verwenden eine echte lokale SQLite-Datenbank für das D1-SQL.
-Ein Home-Assistant-Laufzeittest ist auf diesem Windows-Arbeitsplatz nicht enthalten.
+Die Python-Tests prüfen zusätzlich die Befehlsausführung mit einer simulierten
+Home-Assistant-Aktionsschnittstelle. Einen vollständigen Home-Assistant-
+Laufzeittest enthält diese Testsuite nicht.
 
 ## Name und Icon
 

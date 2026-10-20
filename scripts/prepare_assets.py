@@ -58,5 +58,6 @@ intents += [{"name": "AMAZON." + name + "Intent", "samples": []} for name in ("H
 model = {"interactionModel": {"languageModel": {"invocationName": "mein zuhause", "intents": intents,
     "types": [{"name": "HOME_ENTITY", "values": [{"name": {"value": name}} for name in
         ("Garagentor", "Außenlicht", "Terrassentür", "Wohnzimmerfenster", "Wohnzimmer Temperatur")]}]}}}
+model["interactionModel"]["languageModel"]["types"][0]["values"][0]["name"]["synonyms"] = ["garagen tor"]
 (ROOT / "alexa" / "interaction-model.de-DE.json").write_text(json.dumps(model, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 print("Icons, German setup UI and Alexa model prepared.")

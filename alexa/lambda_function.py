@@ -34,9 +34,12 @@ def normalize(value):
 
 
 def find_entity(entities, spoken):
-    name = normalize(spoken)
-    matches = [e for e in entities if name in (normalize(e["name"]), normalize(e["entity_id"]),
-        normalize(e["entity_id"].split(".")[-1]))]
+    # Alexa may split German compound nouns ("Garagen Tor"). Compare compact
+    # forms, retaining ambiguity checks across every exposed entity.
+    key = lambda value: normalize(value).replace(" ", "")
+    name = key(spoken)
+    matches = [e for e in entities if name in (key(e["name"]), key(e["entity_id"]),
+        key(e["entity_id"].split(".")[-1]))]
     return matches[0] if len(matches) == 1 else None
 
 

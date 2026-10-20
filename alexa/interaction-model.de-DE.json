@@ -112,7 +112,10 @@
           "values": [
             {
               "name": {
-                "value": "Garagentor"
+                "value": "Garagentor",
+                "synonyms": [
+                  "garagen tor"
+                ]
               }
             },
             {

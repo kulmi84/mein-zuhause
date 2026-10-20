@@ -25,10 +25,10 @@ class SkillTest(unittest.TestCase):
         self.data = {"received_at": datetime.now(timezone.utc).isoformat(), "stale": False, "entities": [self.entity]}
         self.config = {"skill_id": "test"}
 
-    def ask(self, name, data=None, entities=None):
+    def ask(self, name, data=None, spoken="Garagentor"):
         event = {"context": {"System": {"application": {"applicationId": "test"}}}, "request": {
             "type": "IntentRequest", "requestId": "test-request", "intent": {"name": name,
-            "slots": {"entity": {"value": "Garagentor"}}}}}
+            "slots": {"entity": {"value": spoken}}}}}
         with patch.object(skill, "load_config", return_value=self.config), patch.object(skill, "api", return_value=data or self.data) as api:
             result = skill.lambda_handler(event, None)
         return result["response"]["outputSpeech"]["text"], api
@@ -43,6 +43,13 @@ class SkillTest(unittest.TestCase):
         self.assertIn("offen", self.ask("StatusIntent")[0])
         self.entity["state"] = "unavailable"
         self.assertIn("nicht verfügbar", self.ask("StatusIntent")[0])
+
+    def test_alexa_split_german_compound(self):
+        self.assertIn("offen", self.ask("StatusIntent", spoken="Garagen Tor")[0])
+
+    def test_spacing_collision_does_not_choose_a_device(self):
+        self.data["entities"].append(dict(self.entity, entity_id="cover.other", name="Garagen Tor"))
+        self.assertIn("nicht eindeutig", self.ask("StatusIntent")[0])
 
     def test_stale_never_reports_current(self):
         self.data["received_at"] = (datetime.now(timezone.utc) - timedelta(minutes=4)).isoformat()
