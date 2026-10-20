@@ -10,8 +10,9 @@ Version 0.1.0 benötigt Home Assistant ab 2026.3 (lokales Integrations-Icon).
 Es ist ein erster funktionsfähiger Entwicklungsstand. Worker und
 Sprachlogik sind automatisiert geprüft. Installation über HACS, Konfigurations-
 und Optionsdialog sowie die Übertragung eines Garagentor-Kontakts wurden in
-einer echten Home-Assistant-Instanz geprüft. Der Test auf einem physischen Echo
-steht noch aus.
+einer echten Home-Assistant-Instanz geprüft. Die vollständige Garagentor-Frage
+wurde im Alexa-Simulator erfolgreich mit dem echten HA-Zustand beantwortet.
+Der Test auf einem physischen Echo steht noch aus.
 
 ## Verwendung
 
