@@ -6,7 +6,7 @@ Eigenständiger privater Alexa-Skill, aufgebaut nach dem Relay-Prinzip von
 „meine Solaranlage“. Eigene Cloudflare-D1-Datenbank **mein-zuhause** mit
 EU-Jurisdiktion; eigener Worker. Die Solarinstallation wird nicht verändert.
 
-Version 0.1.1 benötigt Home Assistant ab 2026.3 (lokales Integrations-Icon).
+Version 0.1.2 benötigt Home Assistant ab 2026.3 (lokales Integrations-Icon).
 Es ist ein erster funktionsfähiger Entwicklungsstand. Worker und
 Sprachlogik sind automatisiert geprüft. Installation über HACS, Konfigurations-
 und Optionsdialog sowie die Übertragung eines Garagentor-Kontakts wurden in
@@ -22,7 +22,12 @@ Der Test auf einem physischen Echo steht noch aus.
 - „Alexa, sage mein Zuhause, schalte das Außenlicht ein.“
 - „Alexa, sage mein Zuhause, schließe das Garagentor.“
 
-Es gelten die vollständigen Anzeigenamen aus Home Assistant. Bei mehrfach
+In den Integrationsoptionen folgt nach der Entitätsauswahl der Schritt
+**Alexa-Namen**. Dort kann jede freigegebene Entität einen eigenen Namen nur
+für den Skill erhalten, etwa „Window“ → „Kellertür“. Ein leeres Feld verwendet
+den Anzeigenamen aus Home Assistant. HA-Namen und Entitäts-IDs bleiben unverändert.
+Der Sprachname gilt gleichermaßen für Abfragen und freigegebene Steuerbefehle.
+Doppelte Sprachnamen werden beim Speichern abgewiesen. Bei nachträglich mehrfach
 vergebenen Namen fragt der Skill nach einem eindeutigen Namen. Die deutschen
 Slotwerte im Alexa-Modell sind Beispiele: Für zuverlässige Erkennung vor
 allem bei direkten Einmalaufrufen die tatsächlichen Namen in der Alexa-Konsole
@@ -43,7 +48,8 @@ Freigaben erfolgt unabhängig davon ausschließlich in Home Assistant.
 6. Unter **Zusätzlich zur Steuerung freigeben** nur die gewünschten steuerbaren
    Entitäten auswählen. Eine Entität muss für Steuerung in beiden Listen stehen.
    Die zweite Liste kann leer bleiben. Eine Torfreigabe erlaubt Öffnen und Schließen.
-7. Später kann die Auswahl über die Integrationsoptionen geändert werden.
+7. Im nächsten Schritt optional **Alexa-Namen** vergeben und speichern.
+   Auswahl und Namen können später über die Integrationsoptionen geändert werden.
 
 ### HACS
 

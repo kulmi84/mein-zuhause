@@ -62,7 +62,8 @@ class Relay:
             try:
                 selected = self.entry.options.get("entities", [])
                 controlled = self.entry.options.get("control_entities", [])
-                snapshot = make_snapshot(self.hass.states, selected, controlled)
+                snapshot = make_snapshot(self.hass.states, selected, controlled,
+                    self.entry.options.get("alexa_names", {}))
                 data = {}
                 if snapshot != self.last_snapshot or time.monotonic() - self.last_sent >= 60:
                     data["entities"] = snapshot

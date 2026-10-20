@@ -92,6 +92,27 @@ class SkillTest(unittest.TestCase):
     def test_lock_never_controllable(self):
         self.assertEqual(model.allowed_actions("lock.front_door", True), [])
 
+    def test_alexa_override_changes_speech_and_target_keeps_identity(self):
+        states = {"cover.garagentor": SimpleNamespace(state="open", attributes={"friendly_name": "HA Garage"})}
+        names = model.clean_alexa_names(states, ["cover.garagentor"], {"cover.garagentor": "  Einfahrt  "})
+        self.data["entities"] = model.make_snapshot(states, ["cover.garagentor"], ["cover.garagentor"], names)
+        text, api = self.ask("CloseIntent", spoken="Einfahrt")
+        self.assertIn("Einfahrt", text)
+        self.assertEqual(api.call_args.args[3]["entity_id"], "cover.garagentor")
+        self.assertEqual(states["cover.garagentor"].attributes["friendly_name"], "HA Garage")
+
+    def test_blank_alias_falls_back_and_removed_entity_alias_is_discarded(self):
+        states = {"sensor.a": SimpleNamespace(state="1", attributes={"friendly_name": "Temperatur"})}
+        names = model.clean_alexa_names(states, ["sensor.a"], {"sensor.a": " ", "sensor.removed": "Alt"})
+        self.assertEqual(names, {})
+        self.assertEqual(model.make_snapshot(states, ["sensor.a"], [], names)[0]["name"], "Temperatur")
+
+    def test_spoken_alias_collisions_and_invalid_values_rejected(self):
+        states = {"cover.a": SimpleNamespace(attributes={"friendly_name": "Garagentor"})}
+        for names in ({"cover.b": "Garagen Tor"}, {"cover.b": "!"}, {"cover.b": "x" * 121}, {"cover.b": 3}):
+            with self.assertRaises(ValueError):
+                model.clean_alexa_names(states, ["cover.a", "cover.b"], names)
+
     def test_url_validation(self):
         for url in ("http://host", "https://user:password@host", "https://host/path", "https://host?token=secret"):
             with self.assertRaises(ValueError):

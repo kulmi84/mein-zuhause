@@ -21,21 +21,28 @@ if source.exists():
 fields = {"entities": "Entitäten für Abfragen", "control_entities": "Zusätzlich zur Steuerung freigeben"}
 description = ("Nur ausgewählte Entitäten werden übertragen (maximal 100). Für Steuerung muss eine Entität in beiden Listen stehen. "
     "Die Steuerfreigabe erlaubt bei Toren auch das Öffnen. Für reine Statusfragen die zweite Liste leer lassen. "
-    "Alexa verwendet die vollständigen Anzeigenamen aus Home Assistant.")
+    "Im nächsten Schritt kannst du eigene Namen nur für Alexa vergeben.")
 errors = {"cannot_connect": "Der Cloudflare-Worker ist nicht erreichbar.",
     "invalid_connection": "HTTPS-Adresse oder Sync-Schlüssel ungültig.",
     "too_many": "Bitte höchstens 100 Entitäten auswählen.",
-    "control_not_selected": "Steuerbare Entitäten müssen auch für Abfragen ausgewählt sein."}
+    "control_not_selected": "Steuerbare Entitäten müssen auch für Abfragen ausgewählt sein.",
+    "invalid_names": "Bitte Sprachnamen mit Buchstaben oder Zahlen und höchstens 120 Zeichen eingeben.",
+    "duplicate_names": "Die Alexa-Namen müssen eindeutig sein, auch ohne Leerzeichen. Bitte unterschiedliche Namen vergeben."}
+names_step = {"title": "Alexa-Namen", "description":
+    "Eigene Namen nur für diesen Alexa-Skill. Die Namen und Entitäts-IDs in Home Assistant bleiben unverändert. "
+    "Ein leeres Feld verwendet weiterhin den Home-Assistant-Anzeigenamen. Der Alexa-Name gilt für Abfragen und Steuerung. "
+    "Für zuverlässige Spracherkennung neue Namen auch im Alexa-Sprachmodell HOME_ENTITY ergänzen.",
+    "data": {"alexa_names": "Sprachnamen der freigegebenen Entitäten"}}
 strings = {"title": "Mein Zuhause – Alexa", "config": {"step": {
     "user": {"title": "Mein Zuhause verbinden", "description": "Adresse des eigenen Cloudflare-Workers und dessen Sync-Schlüssel eingeben. Es wird kein Home-Assistant-Zugriffstoken benötigt.",
         "data": {"url": "Cloudflare-Worker-Adresse (https://…)", "sync_token": "Sync-Schlüssel"}},
-    "entities": {"title": "Entitäten freigeben", "description": description, "data": fields}},
+    "entities": {"title": "Entitäten freigeben", "description": description, "data": fields}, "names": names_step},
     "error": errors, "abort": {"single_instance_allowed": "Mein Zuhause ist bereits eingerichtet."}},
-    "options": {"step": {"init": {"title": "Entitätsauswahl", "description": description, "data": fields}}, "error": errors}}
+    "options": {"step": {"init": {"title": "Entitätsauswahl", "description": description, "data": fields}, "names": names_step}, "error": errors}}
 component = ROOT / "custom_components" / "mein_zuhause"
 (component / "translations").mkdir(exist_ok=True)
 for path in (component / "strings.json", component / "translations" / "de.json"):
-    path.write_text(json.dumps(strings, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(strings, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 
 samples = {
     "StatusIntent": ["wie ist der Status von {entity}", "nach dem Status von {entity}", "ob {entity} noch offen ist",
@@ -53,5 +60,5 @@ model = {"interactionModel": {"languageModel": {"invocationName": "mein zuhause"
     "types": [{"name": "HOME_ENTITY", "values": [{"name": {"value": name}} for name in
         ("Garagentor", "Außenlicht", "Terrassentür", "Wohnzimmerfenster", "Wohnzimmer Temperatur")]}]}}}
 model["interactionModel"]["languageModel"]["types"][0]["values"][0]["name"]["synonyms"] = ["garagen tor"]
-(ROOT / "alexa" / "interaction-model.de-DE.json").write_text(json.dumps(model, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+(ROOT / "alexa" / "interaction-model.de-DE.json").write_text(json.dumps(model, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 print("Icons, German setup UI and Alexa model prepared.")
