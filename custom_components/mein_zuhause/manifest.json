@@ -1,0 +1,12 @@
+{
+  "domain": "mein_zuhause",
+  "name": "Mein Zuhause – Alexa",
+  "version": "0.1.0",
+  "config_flow": true,
+  "documentation": "https://github.com/kulmi84/mein-zuhause",
+  "issue_tracker": "https://github.com/kulmi84/mein-zuhause/issues",
+  "codeowners": ["@kulmi84"],
+  "iot_class": "cloud_polling",
+  "integration_type": "service",
+  "requirements": []
+}

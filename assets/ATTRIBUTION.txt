@@ -1,0 +1,6 @@
+Home Assistant logo: Open Home Foundation.
+Source: https://github.com/home-assistant/assets/tree/master/logo
+Official monochrome geometry; exported as white on black with clear space.
+Home Assistant and the logo are trademarks of the Open Home Foundation.
+This private community project is not an official Home Assistant product.
+For commercial publication, consult the logo owner's usage conditions.

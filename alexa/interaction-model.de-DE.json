@@ -1,0 +1,143 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "mein zuhause",
+      "intents": [
+        {
+          "name": "StatusIntent",
+          "samples": [
+            "wie ist der Status von {entity}",
+            "nach dem Status von {entity}",
+            "ob {entity} noch offen ist",
+            "ob das {entity} noch offen ist",
+            "ob die {entity} offen ist",
+            "ist {entity} offen",
+            "ist das {entity} noch offen",
+            "ist die {entity} eingeschaltet",
+            "wie warm ist {entity}",
+            "nach {entity}"
+          ],
+          "slots": [
+            {
+              "name": "entity",
+              "type": "HOME_ENTITY"
+            }
+          ]
+        },
+        {
+          "name": "OpenEntitiesIntent",
+          "samples": [
+            "was ist noch offen",
+            "welche Fenster sind offen",
+            "welche Türen sind offen"
+          ],
+          "slots": []
+        },
+        {
+          "name": "TurnOnIntent",
+          "samples": [
+            "schalte {entity} ein",
+            "schalte das {entity} ein",
+            "schalte die {entity} ein"
+          ],
+          "slots": [
+            {
+              "name": "entity",
+              "type": "HOME_ENTITY"
+            }
+          ]
+        },
+        {
+          "name": "TurnOffIntent",
+          "samples": [
+            "schalte {entity} aus",
+            "schalte das {entity} aus",
+            "schalte die {entity} aus"
+          ],
+          "slots": [
+            {
+              "name": "entity",
+              "type": "HOME_ENTITY"
+            }
+          ]
+        },
+        {
+          "name": "OpenIntent",
+          "samples": [
+            "öffne {entity}",
+            "öffne das {entity}",
+            "öffne die {entity}"
+          ],
+          "slots": [
+            {
+              "name": "entity",
+              "type": "HOME_ENTITY"
+            }
+          ]
+        },
+        {
+          "name": "CloseIntent",
+          "samples": [
+            "schließe {entity}",
+            "schließe das {entity}",
+            "schließe die {entity}"
+          ],
+          "slots": [
+            {
+              "name": "entity",
+              "type": "HOME_ENTITY"
+            }
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        }
+      ],
+      "types": [
+        {
+          "name": "HOME_ENTITY",
+          "values": [
+            {
+              "name": {
+                "value": "Garagentor"
+              }
+            },
+            {
+              "name": {
+                "value": "Außenlicht"
+              }
+            },
+            {
+              "name": {
+                "value": "Terrassentür"
+              }
+            },
+            {
+              "name": {
+                "value": "Wohnzimmerfenster"
+              }
+            },
+            {
+              "name": {
+                "value": "Wohnzimmer Temperatur"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

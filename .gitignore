@@ -1,0 +1,11 @@
+.private/
+.wrangler/
+**/.wrangler/
+**/__pycache__/
+**/node_modules/
+.dev.vars
+relay_config.json
+cloudflare/wrangler.jsonc
+assets/source/
+assets/*-source.zip
+dist/

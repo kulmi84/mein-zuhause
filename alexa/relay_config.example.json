@@ -1,0 +1,6 @@
+{
+  "url": "https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev",
+  "read_token": "REPLACE_WITH_READ_TOKEN",
+  "control_token": "REPLACE_WITH_CONTROL_TOKEN",
+  "skill_id": "amzn1.ask.skill.REPLACE_WITH_YOUR_SKILL_ID"
+}

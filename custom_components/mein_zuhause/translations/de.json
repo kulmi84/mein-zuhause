@@ -1,0 +1,50 @@
+{
+  "title": "Mein Zuhause – Alexa",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mein Zuhause verbinden",
+        "description": "Adresse des eigenen Cloudflare-Workers und dessen Sync-Schlüssel eingeben. Es wird kein Home-Assistant-Zugriffstoken benötigt.",
+        "data": {
+          "url": "Cloudflare-Worker-Adresse (https://…)",
+          "sync_token": "Sync-Schlüssel"
+        }
+      },
+      "entities": {
+        "title": "Entitäten freigeben",
+        "description": "Nur ausgewählte Entitäten werden übertragen (maximal 100). Für Steuerung muss eine Entität in beiden Listen stehen. Die Steuerfreigabe erlaubt bei Toren auch das Öffnen. Für reine Statusfragen die zweite Liste leer lassen. Alexa verwendet die vollständigen Anzeigenamen aus Home Assistant.",
+        "data": {
+          "entities": "Entitäten für Abfragen",
+          "control_entities": "Zusätzlich zur Steuerung freigeben"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Der Cloudflare-Worker ist nicht erreichbar.",
+      "invalid_connection": "HTTPS-Adresse oder Sync-Schlüssel ungültig.",
+      "too_many": "Bitte höchstens 100 Entitäten auswählen.",
+      "control_not_selected": "Steuerbare Entitäten müssen auch für Abfragen ausgewählt sein."
+    },
+    "abort": {
+      "single_instance_allowed": "Mein Zuhause ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Entitätsauswahl",
+        "description": "Nur ausgewählte Entitäten werden übertragen (maximal 100). Für Steuerung muss eine Entität in beiden Listen stehen. Die Steuerfreigabe erlaubt bei Toren auch das Öffnen. Für reine Statusfragen die zweite Liste leer lassen. Alexa verwendet die vollständigen Anzeigenamen aus Home Assistant.",
+        "data": {
+          "entities": "Entitäten für Abfragen",
+          "control_entities": "Zusätzlich zur Steuerung freigeben"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Der Cloudflare-Worker ist nicht erreichbar.",
+      "invalid_connection": "HTTPS-Adresse oder Sync-Schlüssel ungültig.",
+      "too_many": "Bitte höchstens 100 Entitäten auswählen.",
+      "control_not_selected": "Steuerbare Entitäten müssen auch für Abfragen ausgewählt sein."
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "mein-zuhause",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-20",
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": {"enabled": false},
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "mein-zuhause",
+    "database_id": "REPLACE_WITH_YOUR_SEPARATE_D1_ID"
+  }]
+}
