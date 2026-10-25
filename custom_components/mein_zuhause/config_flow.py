@@ -7,7 +7,7 @@ from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers import selector
 from .const import DOMAIN, READ_DOMAINS, CONTROL_DOMAINS, MAX_ENTITIES
-from .model import validate_url, clean_alexa_names
+from .model import validate_url, clean_alexa_names, merge_entity_selection
 
 
 def names_schema(hass, selected, names):
@@ -30,10 +30,10 @@ def selection_schema(values):
 
 
 def selection_error(data):
-    if len(data["entities"]) > MAX_ENTITIES:
-        return "too_many"
-    if not set(data["control_entities"]).issubset(data["entities"]):
-        return "control_not_selected"
+    try:
+        merge_entity_selection(data, MAX_ENTITIES)
+    except ValueError as error:
+        return str(error)
     return None
 
 
@@ -75,7 +75,7 @@ class MeinZuhauseConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             if error:
                 errors["base"] = error
             else:
-                self._selection = user_input
+                self._selection = merge_entity_selection(user_input, MAX_ENTITIES)
                 return await self.async_step_names()
         return self.async_show_form(step_id="entities", data_schema=selection_schema(user_input or {}), errors=errors)
 
@@ -106,7 +106,7 @@ class MeinZuhauseOptionsFlow(config_entries.OptionsFlow):
             if error:
                 errors["base"] = error
             else:
-                self._selection = user_input
+                self._selection = merge_entity_selection(user_input, MAX_ENTITIES)
                 return await self.async_step_names()
         return self.async_show_form(step_id="init", data_schema=selection_schema(
             user_input if user_input is not None else self.config_entry.options), errors=errors)

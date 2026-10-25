@@ -19,13 +19,12 @@ if source.exists():
     canvas.convert("RGB").resize((512, 512), Image.Resampling.LANCZOS).save(brand / "icon@2x.png")
 
 fields = {"entities": "Entitäten für Abfragen", "control_entities": "Zusätzlich zur Steuerung freigeben"}
-description = ("Nur ausgewählte Entitäten werden übertragen (maximal 100). Für Steuerung muss eine Entität in beiden Listen stehen. "
+description = ("Nur ausgewählte Entitäten werden übertragen (maximal 100). Entitäten zur Steuerung werden automatisch auch für Abfragen übernommen. "
     "Die Steuerfreigabe erlaubt bei Toren auch das Öffnen. Für reine Statusfragen die zweite Liste leer lassen. "
-    "Im nächsten Schritt kannst du eigene Namen nur für Alexa vergeben.")
+    "Im nächsten Schritt kannst du alle ausgewählten Entitäten nur für Alexa umbenennen, auch die steuerbaren.")
 errors = {"cannot_connect": "Der Cloudflare-Worker ist nicht erreichbar.",
     "invalid_connection": "HTTPS-Adresse oder Sync-Schlüssel ungültig.",
     "too_many": "Bitte höchstens 100 Entitäten auswählen.",
-    "control_not_selected": "Steuerbare Entitäten müssen auch für Abfragen ausgewählt sein.",
     "invalid_names": "Bitte Sprachnamen mit Buchstaben oder Zahlen und höchstens 120 Zeichen eingeben.",
     "duplicate_names": "Die Alexa-Namen müssen eindeutig sein, auch ohne Leerzeichen. Bitte unterschiedliche Namen vergeben."}
 names_step = {"title": "Alexa-Namen", "description":

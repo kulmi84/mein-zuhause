@@ -89,6 +89,27 @@ class SkillTest(unittest.TestCase):
         self.assertNotIn("secret", str(snapshot))
         self.assertEqual(snapshot[0]["actions"], [])
 
+    def test_control_only_selection_can_be_named_queried_and_controlled(self):
+        original = {"entities": ["sensor.temperature"], "control_entities": ["switch.desk"]}
+        selection = model.merge_entity_selection(original)
+        states = {"switch.desk": SimpleNamespace(state="off", attributes={"friendly_name": "Schreibtisch"})}
+        names = model.clean_alexa_names(states, selection["entities"], {"switch.desk": "Arbeitslicht"})
+        self.data["entities"] = model.make_snapshot(states, selection["entities"], selection["control_entities"], names)
+        self.assertIn("Arbeitslicht: ausgeschaltet", self.ask("StatusIntent", spoken="Arbeitslicht")[0])
+        text, api = self.ask("TurnOnIntent", spoken="Arbeitslicht")
+        self.assertIn("übermittelt", text)
+        self.assertEqual(api.call_args.args[3]["entity_id"], "switch.desk")
+        self.assertEqual(original["entities"], ["sensor.temperature"])
+        self.assertEqual(self.data["entities"][0]["actions"], [])
+
+    def test_selection_limit_counts_union_and_deduplicates(self):
+        selected = [f"sensor.item_{i}" for i in range(100)]
+        self.assertEqual(len(model.merge_entity_selection({"entities": selected,
+            "control_entities": [selected[0], selected[0]]})["entities"]), 100)
+        with self.assertRaisesRegex(ValueError, "too_many"):
+            model.merge_entity_selection({"entities": selected, "control_entities": ["switch.desk"]})
+        self.assertEqual(model.merge_entity_selection({"entities": [], "control_entities": []})["entities"], [])
+
     def test_lock_never_controllable(self):
         self.assertEqual(model.allowed_actions("lock.front_door", True), [])
 

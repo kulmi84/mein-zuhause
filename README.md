@@ -6,7 +6,7 @@ Eigenständiger privater Alexa-Skill, aufgebaut nach dem Relay-Prinzip von
 „meine Solaranlage“. Eigene Cloudflare-D1-Datenbank **mein-zuhause** mit
 EU-Jurisdiktion; eigener Worker. Die Solarinstallation wird nicht verändert.
 
-Version 0.1.2 benötigt Home Assistant ab 2026.3 (lokales Integrations-Icon).
+Version 0.1.3 benötigt Home Assistant ab 2026.3 (lokales Integrations-Icon).
 Es ist ein erster funktionsfähiger Entwicklungsstand. Worker und
 Sprachlogik sind automatisiert geprüft. Installation über HACS, Konfigurations-
 und Optionsdialog sowie die Übertragung eines Garagentor-Kontakts wurden in
@@ -46,7 +46,7 @@ Freigaben erfolgt unabhängig davon ausschließlich in Home Assistant.
 5. Unter **Entitäten für Abfragen** etwa das Garagentor (`cover` oder
    `binary_sensor` mit passender Geräteklasse) auswählen.
 6. Unter **Zusätzlich zur Steuerung freigeben** nur die gewünschten steuerbaren
-   Entitäten auswählen. Eine Entität muss für Steuerung in beiden Listen stehen.
+   Entitäten auswählen. Diese werden automatisch auch für Abfragen übernommen.
    Die zweite Liste kann leer bleiben. Eine Torfreigabe erlaubt Öffnen und Schließen.
 7. Im nächsten Schritt optional **Alexa-Namen** vergeben und speichern.
    Auswahl und Namen können später über die Integrationsoptionen geändert werden.

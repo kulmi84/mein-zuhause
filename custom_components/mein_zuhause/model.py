@@ -4,6 +4,15 @@ import re
 import unicodedata
 
 
+def merge_entity_selection(data, max_entities=100):
+    """A control grant also permits queries; retain explicit control grants only."""
+    controlled = list(dict.fromkeys(data.get("control_entities", [])))
+    selected = list(dict.fromkeys([*data.get("entities", []), *controlled]))
+    if len(selected) > max_entities:
+        raise ValueError("too_many")
+    return {**data, "entities": selected, "control_entities": controlled}
+
+
 def speech_key(value):
     value = value.lower().replace("ß", "ss").replace("ä", "ae").replace("ö", "oe").replace("ü", "ue")
     return "".join(re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKD", value)))
