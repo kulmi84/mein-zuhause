@@ -29,7 +29,14 @@
           "samples": [
             "was ist noch offen",
             "welche Fenster sind offen",
-            "welche Türen sind offen"
+            "welche Türen sind offen",
+            "ist alles geschlossen",
+            "ob alles geschlossen ist",
+            "ist alles zu",
+            "ob alles zu ist",
+            "sind alle Türen geschlossen",
+            "ob alle Türen geschlossen sind",
+            "ist noch etwas offen"
           ],
           "slots": []
         },

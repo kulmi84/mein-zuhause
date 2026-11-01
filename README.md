@@ -19,6 +19,7 @@ Der Test auf einem physischen Echo steht noch aus.
 - „Alexa, frage mein Zuhause, ob das Garagentor noch offen ist.“
 - „Alexa, frage mein Zuhause nach dem Status von Außenlicht.“
 - „Alexa, frage mein Zuhause, was noch offen ist.“
+- „Alexa, frage mein Zuhause, ob alles geschlossen ist.“
 - „Alexa, sage mein Zuhause, schalte das Außenlicht ein.“
 - „Alexa, sage mein Zuhause, schließe das Garagentor.“
 
@@ -33,6 +34,12 @@ Slotwerte im Alexa-Modell sind Beispiele: Für zuverlässige Erkennung vor
 allem bei direkten Einmalaufrufen die tatsächlichen Namen in der Alexa-Konsole
 unter `HOME_ENTITY` ergänzen und das Modell erneut bauen. Die Auswahl der
 Freigaben erfolgt unabhängig davon ausschließlich in Home Assistant.
+
+Die Sammelabfrage prüft alle freigegebenen Tür-, Fenster- und Torkontakte sowie
+Cover. Sind alle geschlossen, lautet die Antwort „Ja, alles ist geschlossen.“
+Sonst nennt Alexa nur die offenen oder sich bewegenden Entitäten. Unbekannte
+oder nicht verfügbare Zustände werden ausdrücklich genannt; eingeschaltete
+Lampen zählen nicht als offene Türen. Die Auswahl begrenzt den Umfang der Aussage.
 
 ## Installation in Home Assistant
 

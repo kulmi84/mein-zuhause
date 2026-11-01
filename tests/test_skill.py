@@ -75,6 +75,47 @@ class SkillTest(unittest.TestCase):
         self.data["entities"] = []
         self.assertIn("noch keine", self.ask("OpenEntitiesIntent")[0])
 
+    def set_opening_states(self, garage="off", door="off", cellar="off"):
+        self.data["entities"] = [
+            dict(self.entity, entity_id="binary_sensor.garage", name="Garagentor", device_class="garage_door", state=garage),
+            dict(self.entity, entity_id="binary_sensor.door", name="Garagentür", device_class="door", state=door),
+            dict(self.entity, entity_id="binary_sensor.cellar", name="Kellertür", device_class="window", state=cellar),
+            dict(self.entity, entity_id="switch.desk", name="Testlampe", device_class="", state="on"),
+        ]
+
+    def test_all_three_closed_ignores_switched_on_lamp(self):
+        self.set_opening_states()
+        text, api = self.ask("OpenEntitiesIntent")
+        self.assertEqual(text, "Ja, alles ist geschlossen.")
+        self.assertEqual(api.call_count, 1)
+
+    def test_group_query_lists_only_open_sensors(self):
+        self.set_opening_states(door="on", cellar="on")
+        text, _ = self.ask("OpenEntitiesIntent")
+        self.assertIn("Garagentür, Kellertür", text)
+        self.assertNotIn("Garagentor", text)
+        self.assertNotIn("Testlampe", text)
+        self.assertNotIn("Ja, alles", text)
+
+    def test_unknown_sensor_never_confirms_everything_closed(self):
+        self.set_opening_states(cellar="unavailable")
+        text, _ = self.ask("OpenEntitiesIntent")
+        self.assertIn("nicht sicher", text)
+        self.assertIn("Zustand unbekannt: Kellertür", text)
+        self.assertNotIn("alles ist geschlossen", text)
+
+    def test_group_query_reports_open_and_unknown_together(self):
+        self.set_opening_states(garage="on", door="unknown")
+        text, _ = self.ask("OpenEntitiesIntent")
+        self.assertIn("Noch offen oder in Bewegung: Garagentor", text)
+        self.assertIn("Zustand unbekannt: Garagentür", text)
+        self.assertNotIn("alles ist geschlossen", text)
+
+    def test_stale_group_query_does_not_confirm_closed(self):
+        self.set_opening_states()
+        self.data["received_at"] = (datetime.now(timezone.utc) - timedelta(minutes=4)).isoformat()
+        self.assertIn("nicht aktuell", self.ask("OpenEntitiesIntent")[0])
+
     def test_wrong_skill_id(self):
         self.config["skill_id"] = "other"
         text, api = self.ask("StatusIntent")

@@ -99,14 +99,20 @@ def lambda_handler(event, context):
         entities = data["entities"]
         if name == "OpenEntitiesIntent":
             openings = [e for e in entities if e["entity_id"].startswith("cover.") or
-                e.get("device_class") in ("door", "window", "garage_door", "opening", "gate")]
+                (e["entity_id"].startswith("binary_sensor.") and
+                 e.get("device_class") in ("door", "window", "garage_door", "opening", "gate"))]
             if not openings:
                 return say("Es sind noch keine Türen, Fenster oder Tore zur Abfrage freigegeben.")
             open_entities = [e["name"] for e in openings if e["state"] in ("on", "open", "opening", "closing")]
             unknown = [e["name"] for e in openings if e["state"] not in ("on", "off", "open", "closed", "opening", "closing")]
-            text = "Offen oder in Bewegung: " + ", ".join(open_entities) + "." if open_entities else "Alle abfragbaren Türen, Fenster und Tore sind geschlossen."
+            if open_entities:
+                text = "Noch offen oder in Bewegung: " + ", ".join(open_entities) + "."
+            elif unknown:
+                text = "Das kann ich nicht sicher sagen."
+            else:
+                text = "Ja, alles ist geschlossen."
             if unknown:
-                text += " Unbekannter Zustand: " + ", ".join(unknown) + "."
+                text += " Zustand unbekannt: " + ", ".join(unknown) + "."
             return say(text)
         spoken = intent.get("slots", {}).get("entity", {}).get("value", "")
         entity = find_entity(entities, spoken)
