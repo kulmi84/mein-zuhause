@@ -6,7 +6,7 @@ Eigenständiger privater Alexa-Skill, aufgebaut nach dem Relay-Prinzip von
 „meine Solaranlage“. Eigene Cloudflare-D1-Datenbank **mein-zuhause** mit
 EU-Jurisdiktion; eigener Worker. Die Solarinstallation wird nicht verändert.
 
-Version 0.1.3 benötigt Home Assistant ab 2026.3 (lokales Integrations-Icon).
+Version 0.1.4 benötigt Home Assistant ab 2026.3 (lokales Integrations-Icon).
 Es ist ein erster funktionsfähiger Entwicklungsstand. Worker und
 Sprachlogik sind automatisiert geprüft. Installation über HACS, Konfigurations-
 und Optionsdialog sowie die Übertragung eines Garagentor-Kontakts wurden in
@@ -66,6 +66,19 @@ In HACS unter den benutzerdefinierten Repositorys
 Danach die Integration wie oben unter Geräte & Dienste hinzufügen.
 Die Entitätsauswahl liegt im Einrichtungs- und Optionsdialog von Home Assistant;
 HACS übernimmt Installation und Updates.
+
+Updates werden als GitHub-Releases mit einer Versionsnummer veröffentlicht.
+Der Release-Tag und die Version in `manifest.json` müssen übereinstimmen.
+Nach dem Wechsel von einem bisherigen Commit-Stand auf ein Release zeigt
+HACS die Versionsnummer statt eines Commit-Kürzels an.
+
+### Version 0.1.4
+
+- Erster nummerierter GitHub-Release für nachvollziehbare HACS-Updates.
+- Enthält die aktuelle Entitätsauswahl mit eigenen Alexa-Namen.
+- Enthält das Alexa-Sprachmodell und Backend für die Sammelabfrage
+  „Ist alles geschlossen?“. Alexa-Code und Sprachmodell werden separat
+  in der Alexa-Konsole bereitgestellt; ein HACS-Update installiert nur die HA-Integration.
 
 ## Alexa einrichten
 
